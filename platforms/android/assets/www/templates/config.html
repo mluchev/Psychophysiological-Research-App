@@ -1,0 +1,43 @@
+<ion-view view-title="Входни данни" class="configView">
+  <ion-content>
+    <div class="list card parametersHolder">
+      <div class="item item-divider">
+        Параметри
+      </div>
+      <label class="item item-input">
+        <span class="input-label">Брой серии:</span>
+        <input type="number" placeholder="Брой серии" ng-model="vm.taskParams.numOfSeries">
+      </label>
+      <label class="item item-input">
+          <span class="input-label">Брой ситуации в серия:</span>
+        <input type="number" placeholder="Брой ситуации в серия" ng-model="vm.taskParams.numOfSituationsInSeries">
+      </label>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">
+        Данни за изследваното лице
+      </div>
+      <label class="item item-input">
+        <input type="text" placeholder="Име">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Фамилия">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Пол">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Възраст">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Образование">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Професия">
+      </label>
+    </div>
+    <button class="button button-block button-balanced" ui-sref="app.taskExecute({taskId: vm.taskId, taskParams: vm.taskParams})">
+      Започни
+    </button>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-view view-title="Резултати">
+  <ion-content class="resultsHolder">
+    <div class="list card">
+      <div class="item item-divider">
+        Входни параметри
+      </div>
+      <label class="item item-input">
+        <span class="fieldName">Брой серии:</span>
+        <span class="fieldValue">{{vm.taskParams.numOfSeries}}</span>
+      </label>
+      <label class="item item-input">
+        <span class="fieldName">Брой ситуации в серия:</span>
+        <span class="fieldValue">{{vm.taskParams.numOfSituationsInSeries}}</span>
+      </label>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">
+        Резултати
+      </div>
+      <label class="item item-input">
+        <span class="fieldName">Общо време:</span>
+        <span class="fieldValue">{{vm.totalTime.mins + 'мин ' + vm.totalTime.secs + 'сек'}}</span>
+      </label>
+      <label class="item item-input">
+        <span class="fieldName">Брой грешки:</span>
+        <span class="fieldValue">{{vm.taskResults.totalNumOfErrors}}</span>
+      </label>
+    </div>
+    <button class="button button-block button-balanced" ui-sref="app.tasks">
+      Към всички методики
+    </button>
+  </ion-content>
+</ion-view>

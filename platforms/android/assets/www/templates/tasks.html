@@ -1,0 +1,9 @@
+<ion-view view-title="Всички методики">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="task in vm.tasks" href="#/app/tasks/{{task.id}}/config">
+        {{task.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
