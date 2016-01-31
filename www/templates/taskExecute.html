@@ -1,4 +1,4 @@
-<ion-view view-title="{{'Методика '  + vm.taskId}}">
+<ion-view view-title="{{'Методика '  + vm.taskId}}" cache-view="false">
   <ion-content class="{{'task' + vm.taskId}}">
       <div ng-if="vm.taskId==1">
           <div class="errorLabelContainer">
@@ -6,8 +6,8 @@
           </div>
           <div class="buttonsContainer" tabindex="0" keydown on-keydown-func="vm.clickTaskButton">
               <!-- бутон прекрати -> към страница с резултати + незавършено! -->
-              <div class="taskButton" ng-click="vm.clickTaskButton(0)"><span class="text">Б1</span></div>
-              <div class="taskButton" ng-click="vm.clickTaskButton(1)"><span class="text">Б2</span></div>
+              <div class="taskButton" ng-click="vm.clickTaskButton(0)"><span class="text">Л</span></div>
+              <div class="taskButton" ng-click="vm.clickTaskButton(1)"><span class="text">Д</span></div>
           </div>
       </div>
 
@@ -17,15 +17,15 @@
           </div>
 
           <div class="signalsHolder">
-              <div class="taskSignal {{vm.currSignalColor}}" ng-show="vm.signalShowPosition === 0"></div>
-              <div class="taskSignal {{vm.currSignalColor}}" ng-show="vm.signalShowPosition === 1"></div>
-              <div class="taskSignal {{vm.currSignalColor}}" ng-show="vm.signalShowPosition === 2"></div>
+              <div class="taskSignal {{vm.currSignalColor}}" ng-class="{hidden: vm.signalShowPosition !== 0}"></div>
+              <div class="taskSignal {{vm.currSignalColor}} middleButtonOrSignal" ng-class="{hidden: vm.signalShowPosition !== 1}"></div>
+              <div class="taskSignal {{vm.currSignalColor}}" ng-class="{hidden: vm.signalShowPosition !== 2}"></div>
           </div>
 
           <div class="buttonsContainer buttonsHolder" tabindex="0" keydown on-keydown-func="vm.clickTaskButton">
-              <div class="taskButton red" ng-click="vm.clickTaskButton(0)"><span class="text">Б1</span></div>
-              <div class="taskButton green" ng-click="vm.clickTaskButton(1)"><span class="text">Б2</span></div>
-              <div class="taskButton blue" ng-click="vm.clickTaskButton(2)"><span class="text">Б3</span></div>
+              <div class="taskButton" ng-click="vm.clickTaskButton(0)"><span class="text">Б1</span></div>
+              <div class="taskButton middleButtonOrSignal" ng-click="vm.clickTaskButton(1)"><span class="text">Б2</span></div>
+              <div class="taskButton" ng-click="vm.clickTaskButton(2)"><span class="text">Б3</span></div>
           </div>
       </div>
   </ion-content>

@@ -1,126 +1,168 @@
-    .task1 {
-      /*position: relative;*/
-    }
-    .task1 .buttonsContainer {
-      display: flex;
-      justify-content: space-between;
-      padding: 120px 40px;
-    }
-    .task1 .buttonsContainer .taskButton {
-      align-self: stretch;
-      background-color: green;
-      width: 130px;
-      height: 50vh;
-      border-radius: 5px;
-      text-align: center;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-    .task1 .buttonsContainer .taskButton .text {
-      display: inline-block;
-      color: white;
-      font-size: 35px;
-      height: 40px;
-      /*margin: 20px;*/
-      line-height: 40px;
-    }
-    .errorLabelContainer {
-      text-align: center;
-      position: absolute;
-      top: 50px;
-      display: block;
-      width: 100%;
-    }
-    .errorLabel {
-      display: inline-block;
-      width: 100px;
-      height: 40px;
-      /*margin: 20px;*/
-      line-height: 40px;
-      text-align: center;
-      background-color: red;
-      color: white;
-      border-radius: 5px;
-    }
+.item span.fieldValue, .item input, .item label {
+    font-size: 22px;
+}
 
-    .task2 .taskHolder{
-        top: 50px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
+.normalScroll {
+    overflow-y: auto !important;
+}
 
-    .task2 .taskHolder .signalsHolder {
-        width: 90%;
-        margin-top: 44px;
-        flex: 2;
+.task1 {
+    /*position: relative;*/
+}
 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-    }
-    .task2 .taskHolder .signalsHolder .taskSignal {
-        width: 30%;
-        height: 200px;
-    }
-    .task2 .taskHolder .buttonsHolder {
-        width: 90%;
-        flex: 1;
+.task1 .buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 120px 40px;
+}
 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.task1 .buttonsContainer .taskButton {
+    align-self: stretch;
+    background-color: green;
+    width: 130px;
+    height: 50vh;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
 
-    .task2 .taskHolder .buttonsHolder .taskButton {
-        width: 30%;
-        height: 100px;
-    }
+.task1 .buttonsContainer .taskButton .text {
+    display: inline-block;
+    color: white;
+    font-size: 35px;
+    height: 40px;
+    /*margin: 20px;*/
+    line-height: 40px;
+}
 
-    .task2 .taskHolder .buttonsHolder .taskButton .text {
-        display: inline-block;
-        color: white;
-        font-size: 35px;
-        height: 40px;
-        line-height: 40px;
-    }
+.errorLabelContainer {
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    display: block;
+    width: 100%;
+}
 
-    .red {
-        background-color: red;
-    }
+.errorLabel {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    /*margin: 20px;*/
+    line-height: 40px;
+    text-align: center;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+}
 
-    .green {
-        background-color: green;
-    }
+.task2 .taskHolder {
+    top: 50px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .blue {
-        background-color: blue;
-    }
+.task2 .taskHolder .signalsHolder {
+    width: 90%;
+    margin-top: 104px;
+    flex: 2;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.task2 .taskHolder .signalsHolder .taskSignal {
+    width: 30%;
+    height: 200px;
+}
+
+.task2 .taskHolder .buttonsHolder {
+    width: 90%;
+    flex: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task2 .taskHolder .buttonsHolder .taskButton {
+    width: 30%;
+    height: 100px;
+    border: solid 1px #000000;
+}
+
+.task2 .taskHolder .buttonsHolder .taskButton .text {
+    display: inline-block;
+    /*color: white;*/
+    font-size: 35px;
+    height: 40px;
+    line-height: 40px;
+
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.displayNone {
+    display: none;
+}
+
+.middleButtonOrSignal {
+    align-self: flex-end;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
 
 .resultsHolder label {
-  position: relative;
+    position: relative;
 }
 
 .resultsHolder label span {
-  width: 50%;
-  padding: 15px;
+    width: 50%;
+    padding: 15px;
+}
+
+.resultsHolder .allResults {
+    width: 100%;
+    text-align: center;
+}
+
+.resultsHolder .allResults th {
+    background-color: darkslategrey;
+    color: white;
 }
 
 .resultsHolder label span.fieldValue {
-  text-align: right;
-  padding-right: 50px;
+    text-align: right;
+    padding-right: 50px;
 }
 
 .configView .parametersHolder input {
     text-align: right;
     padding-right: 20px;
 }
-    /*display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+/*display: block;
+margin-left: auto;
+margin-right: auto;
 }*/

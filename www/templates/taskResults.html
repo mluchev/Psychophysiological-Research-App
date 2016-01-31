@@ -1,33 +1,89 @@
 <ion-view view-title="Резултати">
-  <ion-content class="resultsHolder">
-    <div class="list card">
-      <div class="item item-divider">
-        Входни параметри
-      </div>
-      <label class="item item-input">
-        <span class="fieldName">Брой серии:</span>
-        <span class="fieldValue">{{vm.taskParams.numOfSeries}}</span>
-      </label>
-      <label class="item item-input">
-        <span class="fieldName">Брой ситуации в серия:</span>
-        <span class="fieldValue">{{vm.taskParams.numOfSituationsInSeries}}</span>
-      </label>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">
-        Резултати
-      </div>
-      <label class="item item-input">
-        <span class="fieldName">Общо време:</span>
-        <span class="fieldValue">{{vm.totalTime.mins + 'мин ' + vm.totalTime.secs + 'сек'}}</span>
-      </label>
-      <label class="item item-input">
-        <span class="fieldName">Брой грешки:</span>
-        <span class="fieldValue">{{vm.taskResults.totalNumOfErrors}}</span>
-      </label>
-    </div>
-    <button class="button button-block button-balanced" ui-sref="app.tasks">
-      Към всички методики
-    </button>
-  </ion-content>
+    <ion-content class="resultsHolder normalScroll">
+        <div class="list card">
+            <div class="item item-divider">
+                Входни параметри
+            </div>
+            <label class="item item-input">
+                <span class="fieldName">Брой серии:</span>
+                <span class="fieldValue">{{vm.taskParams.numOfSeries}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="fieldName">Брой ситуации в серия:</span>
+                <span class="fieldValue">{{vm.taskParams.numOfSituationsInSeries}}</span>
+            </label>
+        </div>
+        <div class="list card">
+            <div class="item item-divider">
+                Резултати
+            </div>
+
+
+            <!--ng-repeat - without code duplication-->
+            <label class="item item-input">
+                <span class="fieldName">Време за четене на инструкцията:</span>
+                <span class="fieldValue">{{vm.taskResults.totalInstructionReadTime.mins + 'мин '
+                    + vm.taskResults.totalInstructionReadTime.secs + 'с'}}</span>
+            </label>
+
+        </div>
+
+        <div ng-repeat="type in vm.tryTypes" class="list card">
+            <div class="item item-divider">
+                {{vm.tryTypesBGMap[type]}}
+            </div>
+
+            <label class="item item-input">
+                <span class="fieldName">Общ брой</span>
+                <span class="fieldValue">{{vm.taskResults['total' + type + 's']}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="fieldName">Общо време</span>
+                    <span class="fieldValue">{{vm.taskResults['total' + type + 'Time'].mins + 'мин '
+                    + vm.taskResults['total' + type + 'Time'].secs + 'с'}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="fieldName">Средно време за отговор</span>
+                <span class="fieldValue">{{vm.taskResults['avgTimeFor' + type] + 'мс'}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="fieldName">Дисперсия</span>
+                <span class="fieldValue">{{vm.taskResults['dispersionFor' + type + 'Time']+ 'мс'}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="fieldName">Стандартно отклонение</span>
+                <span class="fieldValue">{{vm.taskResults['stdDeviationFor' + type]+ 'мс'}}</span>
+            </label>
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider">
+                Всички отговори
+            </div>
+            <table class="allResults">
+                <thead>
+                <th>Серия</th>
+                <th>Опит в серията</th>
+                <th>Време(мс)</th>
+                <th>Отговорил</th>
+                <th>Отговорил с</th>
+                <th>Верен Отг</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="answer in vm.taskResults.allTries">
+                    <td> {{answer.numOfCycle}}</td>
+                    <td> {{answer.numOfTryInCycle}}</td>
+                    <td> {{answer.duration}}</td>
+                    <td> {{(answer.selectedChoice === answer.trueChoice) ? 'Вярно' : 'Грешно'}}</td>
+                    <td> {{'Бутон ' + answer.selectedChoice}}</td>
+                    <td> {{'Бутон ' + answer.trueChoice}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--<button class="button button-block button-balanced" ui-sref="app.tasks">-->
+            <!--Към всички методики-->
+        <!--</button>-->
+    </ion-content>
 </ion-view>
