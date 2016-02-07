@@ -35,6 +35,7 @@ angular.module('starter.services', [])
             });
         }
 
+        // without free tries
         function getAllTries() {
             return allTries;
         }
@@ -78,8 +79,16 @@ angular.module('starter.services', [])
             return sum / tries.length;
         }
 
+
+//        function saveFreeTry(currNumOfClicksInCycle, currentCycle + 1, lastTryTime,
+//            buttonId + 1, vm.currentSignal + 1) {
+//        }
+
         return {
             saveTry: saveTry,
+            //saveFreeTry: saveFreeTry,
+
+
             saveTaskResultsToLocalStorage: saveTaskResultsToLocalStorage,
             getTaskResultsFromLocalStorage: getTaskResultsFromLocalStorage,
 

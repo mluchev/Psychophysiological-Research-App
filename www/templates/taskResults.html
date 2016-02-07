@@ -63,7 +63,7 @@
             <table class="allResults">
                 <thead>
                 <th>Серия</th>
-                <th>Опит в серията</th>
+                <th>Пореден номер в серията</th>
                 <th>Време(мс)</th>
                 <th>Отговорил</th>
                 <th>Отговорил с</th>
@@ -75,8 +75,8 @@
                     <td> {{answer.numOfTryInCycle}}</td>
                     <td> {{answer.duration}}</td>
                     <td> {{(answer.selectedChoice === answer.trueChoice) ? 'Вярно' : 'Грешно'}}</td>
-                    <td> {{'Бутон ' + answer.selectedChoice}}</td>
-                    <td> {{'Бутон ' + answer.trueChoice}}</td>
+                    <td> {{vm.setButtonName(answer.selectedChoice)}}</td>
+                    <td> {{vm.setButtonName(answer.trueChoice)}}</td>
                 </tr>
                 </tbody>
             </table>

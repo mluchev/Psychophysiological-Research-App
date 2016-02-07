@@ -58,9 +58,12 @@ angular.module('starter.controllers', [])
 
         function setTask2() {
             var NUM_OF_FREE_TRIES_PER_CYCLE = 3,
-                lastTryTime;
+                lastTryTime,
+                areButtonsActive;
 
             vm.clickTaskButton = function (buttonId) {
+                if(!areButtonsActive) { return; }
+
                 // show/hide error message
                 if (vm.currentSignal === buttonId) {
                     vm.showErrorMessage = false;
@@ -70,13 +73,20 @@ angular.module('starter.controllers', [])
 
                 currNumOfClicksInCycle++;
                 if (currNumOfClicksInCycle <= NUM_OF_FREE_TRIES_PER_CYCLE) {
+//                    Results.saveFreeTry(currNumOfClicksInCycle, currentCycle + 1, lastTryTime,
+//                        buttonId + 1, vm.currentSignal + 1);
+//                    lastTryTime = Date.now();
+
                     // here without timer and out of statistics - free tries
                     if (currNumOfClicksInCycle === 3) {
-                        // in order to know the duration of the first non-free try in cycle
-                        lastTryTime = Date.now();
+                        showPopupForRealTestStart(function() {
+                            // in order to know the duration of the first non-free try in cycle
+                            lastTryTime = Date.now();
 
-                        // generate new random signal
-                        projectNextSignal(Math.floor(Math.random() * 3));
+                            vm.showErrorMessage = false;
+                            // generate new random signal
+                            projectNextSignal(Math.floor(Math.random() * 3));
+                        });
                     } else {
                         // generate new signal - the first 3 free attempts should be always include all the 3 colors
                         projectNextSignal(currNumOfClicksInCycle);
@@ -86,31 +96,36 @@ angular.module('starter.controllers', [])
                         buttonId + 1, vm.currentSignal + 1);
                     lastTryTime = Date.now();
 
-                    // generate new random signal
-                    projectNextSignal(Math.floor(Math.random() * 3));
+                    // if last click in series, don't project the next here, but after the new series popup
+                    if (currNumOfClicksInCycle !== NUM_OF_SITUATIONS_IN_CYCLE) {
+                        // generate new random signal
+                        projectNextSignal(Math.floor(Math.random() * 3));
+                    }
                 }
 
+                // new series start
                 if (currNumOfClicksInCycle === NUM_OF_SITUATIONS_IN_CYCLE) {
-                    currentCycle++;
-                    currNumOfClicksInCycle = 0;
-                    // shuffle button-signal matches  on every new cycle
-                    vm.signalColors =  MiscOperations.shuffle(vm.signalColors);
+                    // when we've finished series
+                    if (currentCycle === NUM_OF_CYCLES - 1) {
+                        // end task and go to results
+                        processTaskResults();
+                        showPopupAfterFinishingTask();
+                    } else {
+                        showPopupForNewCycleStart(currentCycle + 1, function() {
+                            currentCycle++;
+                            currNumOfClicksInCycle = 0;
+
+                            // as closing the alert will take time, that shouldn't be included in the statistics
+                            lastTryTime = Date.now();
+                            // shuffle button-signal matches  on every new cycle
+                            vm.signalColors =  MiscOperations.shuffle(vm.signalColors);
+                            console.log(vm.signalColors);
+                            vm.showErrorMessage = false;
+                            // first 3 free attempts - always different from each other
+                            projectNextSignal(0);
+                        });
+                    }
                 }
-
-                if (currentCycle > NUM_OF_CYCLES - 1) {
-                    // end task and go to results
-                    processTaskResults();
-                    showPopupAfterFinishingTask();
-                }
-
-
-
-
-
-
-
-                // should be moved from here -> on cycle change there may be a problem
-//                projectNextSignal(situationsMatrix[currentCycle][currNumOfClicksInCycle]);
             };
 
             init();
@@ -122,6 +137,8 @@ angular.module('starter.controllers', [])
                 instructionPopup.then(function () {
                     // end instruction time
                     vm.taskResults.totalInstructionReadTime = Date.now() - startInstructionTime;
+                    areButtonsActive = true;
+//                    lastTryTime = Date.now();
                 });
 
                 vm.signalShowPosition = Math.floor(Math.random() * 3);
@@ -149,6 +166,34 @@ angular.module('starter.controllers', [])
                     vm.signalShowPosition = Math.floor(Math.random() * 3);
                 }
             }
+
+            function showPopupForRealTestStart(callback) {
+                var alertPopup = $ionicPopup.alert({
+                    template: 'Край на пробните опити за текущата серия. Сега започва същниският тест за серията.'
+                });
+
+                areButtonsActive = false;
+                alertPopup.then(function (res) {
+                    callback();
+                    areButtonsActive = true;
+                });
+            }
+
+            function showPopupForNewCycleStart(currentCycle, callback) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Начало на нова серия',
+                    template: 'Край на Серия ' + currentCycle + ', начало на Серия ' + (1 + currentCycle)
+                    + ', където съответствието цвят-бутон ще е различно. Отново ще имате 3 пробни опита, преди да започне същинският тест.'
+                });
+
+                areButtonsActive = false;
+
+                alertPopup.then(function (res) {
+                    callback();
+                    areButtonsActive = true;
+                });
+            }
+
         }
 
         function setTask1() {
@@ -251,6 +296,9 @@ angular.module('starter.controllers', [])
             });
         }
 
+
+
+
         function showPopupWithInstructionsBeforeStart(taskId) {
             var alertPopup, instructionText;
 
@@ -260,7 +308,8 @@ angular.module('starter.controllers', [])
 
             } else if (taskId == 2) {
                 instructionText = 'Открийте съответствието бутон-цвят във всяка от сериите! Имате по 3 пробни опита в началото на' +
-                    ' всяка серия, за да го откриете преди да бъде започнато отчитането на времето за отговор.';
+                    ' всяка серия, за да го откриете. Веднага след 3-тия пробен опит ще започне същинският тест. Можете да отговаряте с ' +
+                    'лява, долна и дясна стрелка от клавиатурата съответно за Б1, Б2 и Б3 (или с клик на мишката върху съответния бутон).';
             }
 
             alertPopup = $ionicPopup.alert({
@@ -278,12 +327,24 @@ angular.module('starter.controllers', [])
         vm.taskParams = $stateParams.taskParams;
         vm.taskResults = $stateParams.taskResults;
 
+        vm.setButtonName = function(buttonNum) {
+            if($stateParams.taskId == 1) {
+                if(buttonNum == 0) {
+                    return 'Л.';
+                } else if(buttonNum == 1) {
+                    return 'Д.';
+                }
+            } else if($stateParams.taskId == 2){
+                return 'Бутон ' + buttonNum;
+            }
+
+        };
+
+
         vm.tryTypes.forEach(function (type) {
             convertTimeToProperViewFormat(type);
         });
         convertTimeToProperViewFormat('InstructionRead');
-
-        console.log($stateParams.taskResults);
 
         // better with filter
         function convertTimeToProperViewFormat(type) {
